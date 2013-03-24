@@ -11,9 +11,15 @@ SampleApp::Application.routes.draw do
  #  PUT    /users/1       update  user_path(user)   update user
  #  DELETE /users/1       destroy user_path(user)   delete user
   
-  resources :users
+  resources :users do
+    member do
+      get :following, :followers
+    end
+  end
+
   resources :sessions, only: [:new, :create, :destroy]
   resources :microposts, only: [:create, :destroy]
+  resources :relationships, only: [:create, :destroy]
 
   root to: 'static_pages#home'
 
